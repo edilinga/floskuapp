@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hi.verkefni.vidmot.FloskurController"
+            stylesheets="@css/floskur.css">
+
+    <!-- Top left checkbox -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+            </padding>
+
+            <!-- Left side -->
+            <CheckBox fx:id="fxDarkMode" text="Dark Mode" onAction="#toggleDarkMode"/>
+
+            <!-- Spacer -->
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Right side -->
+            <ToggleButton fx:id="fxEngButton" text="ENG"/>
+            <ToggleButton fx:id="fxIceButton" text="ICE"/>
+        </HBox>
+    </top>
+
+
+    <!-- Center layout (everything else) -->
+    <center>
+        <VBox alignment="CENTER" prefHeight="300" prefWidth="400" spacing="15">
+            <!-- Row for "Dósir" -->
+            <HBox alignment="CENTER" spacing="10">
+                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir" styleClass="input-label"/>
+                <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn tölu" />
+                <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0" />
+            </HBox>
+
+            <!-- Row for "Flöskur" -->
+            <HBox alignment="CENTER" spacing="10">
+                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur" styleClass="input-label"/>
+                <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn tölu" />
+                <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
+            </HBox>
+
+            <!-- Row for Total -->
+            <HBox alignment="CENTER" spacing="10">
+                <Label prefWidth="80" text="Samtals" styleClass="input-label"/>
+                <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="200" style="-fx-font-weight: bold;" text="0" />
+            </HBox>
+
+            <!-- Buttons Row -->
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða" styleClass="input-label"/>
+                <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="input-label"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

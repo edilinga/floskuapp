@@ -1,0 +1,58 @@
+.root {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: white;
+}
+
+
+.output-label {
+    -fx-background-color: transparent !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: black !important;
+}
+
+/* Input fields */
+.input-field {
+    -fx-background-color: #3c3f41 !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: black !important;
+}
+
+/* Style for input labels: "Dósir", "Flöskur", "Samtals" */
+.input-label {
+    -fx-background-color: transparent !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: black !important;
+    -fx-border-width: 1px !important;
+    -fx-padding: 5px !important;
+    -fx-alignment: center-left !important;
+}
+
+
+.button {
+    -fx-background-color: #3c3f41 !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: transparent !important;
+    -fx-border-width: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-background-radius: 0 !important;
+    -fx-padding: 5 10 !important;
+    -fx-effect: none !important;
+    -fx-opacity: 1 !important;
+}
+
+
+.button:armed, .button:pressed {
+    -fx-background-color: #3c3f41 !important;
+}
+
+
+.button:focused {
+    -fx-focus-color: transparent !important;
+    -fx-faint-focus-color: transparent !important;
+}
+
+
+.button:hover {
+    -fx-background-color: #505354 !important;
+}
+
