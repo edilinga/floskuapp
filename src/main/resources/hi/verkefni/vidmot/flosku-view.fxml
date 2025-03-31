@@ -16,7 +16,7 @@
             </padding>
 
             <!-- Left side -->
-            <CheckBox fx:id="fxDarkMode" text="Dark Mode" onAction="#toggleDarkMode"/>
+            <CheckBox fx:id="fxDarkMode" text="Dökkur hamur" onAction="#toggleDarkMode"/>
 
             <!-- Spacer -->
             <Region HBox.hgrow="ALWAYS" />
@@ -33,21 +33,21 @@
         <VBox alignment="CENTER" prefHeight="300" prefWidth="400" spacing="15">
             <!-- Row for "Dósir" -->
             <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir" styleClass="input-label"/>
+                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir"/>
                 <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn tölu" />
                 <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
 
             <!-- Row for "Flöskur" -->
             <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur" styleClass="input-label"/>
+                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur"/>
                 <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn tölu" />
                 <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
 
             <!-- Row for Total -->
             <HBox alignment="CENTER" spacing="10">
-                <Label prefWidth="80" text="Samtals" styleClass="input-label"/>
+                <Label fx:id="fxSamtalsLabel" prefWidth="80" text="Samtals"/>
                 <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="200" style="-fx-font-weight: bold;" text="0" />
             </HBox>
 
