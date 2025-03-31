@@ -34,14 +34,14 @@
             <!-- Row for "Dósir" -->
             <HBox alignment="CENTER" spacing="10">
                 <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir"/>
-                <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn tölu" />
+                <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn fjölda" />
                 <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
 
             <!-- Row for "Flöskur" -->
             <HBox alignment="CENTER" spacing="10">
                 <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur"/>
-                <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn tölu" />
+                <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn fjölda" />
                 <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
 
@@ -53,8 +53,8 @@
 
             <!-- Buttons Row -->
             <HBox alignment="CENTER" spacing="10">
-                <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða" styleClass="input-label"/>
-                <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="input-label"/>
+                <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða" styleClass="button"/>
+                <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="button"/>
             </HBox>
         </VBox>
     </center>

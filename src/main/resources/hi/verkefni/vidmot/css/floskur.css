@@ -19,6 +19,9 @@
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
+.button:hover {
+    -fx-background-color: #C7E9C0 !important
+}
 .vbox {
     -fx-background-color: #f4f4f4;
     -fx-padding: 15px;

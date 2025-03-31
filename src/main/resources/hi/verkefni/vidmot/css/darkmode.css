@@ -29,7 +29,7 @@
 
 
 .button {
-    -fx-background-color: #3c3f41 !important;
+    -fx-background-color: #74C476 !important;
     -fx-text-fill: white !important;
     -fx-border-color: transparent !important;
     -fx-border-width: 0 !important;
@@ -53,6 +53,15 @@
 
 
 .button:hover {
-    -fx-background-color: #505354 !important;
+    -fx-background-color: #C7E9C0 !important;
+}
+.check-box {
+    -fx-text-fill: white;
+}
+
+#fxDosirLabel,
+#fxFloskurLabel,
+#fxSamtalsLabel{
+    -fx-text-fill: white;
 }
 
