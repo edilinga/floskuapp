@@ -22,8 +22,8 @@
             <Region HBox.hgrow="ALWAYS" />
 
             <!-- Right side -->
-            <ToggleButton fx:id="fxEngButton" text="ENG"/>
-            <ToggleButton fx:id="fxIceButton" text="ICE"/>
+            <ToggleButton fx:id="fxIceButton" text="ÍSL" onAction="#switchToIcelandic"/>
+            <ToggleButton fx:id="fxEngButton" text="ENG" onAction="#switchToEnglish"/>
         </HBox>
     </top>
 

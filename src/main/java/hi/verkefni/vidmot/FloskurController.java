@@ -12,7 +12,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-
+import java.util.Locale;
 
 import javafx.scene.control.Button;
 
@@ -34,22 +34,58 @@ public class FloskurController implements Initializable {
     private Floskur floskur = new Floskur();
     private int heildarFjoldi = 0;
     private int heildarVirdi = 0;
+    @FXML
+    private Label fxDosirLabel;
+
+    @FXML
+    private Label fxFloskurLabel;
+
+    @FXML
+    private Label fxSamtalsLabel;
+
+    @FXML
+    private Button fxGreida;
+
+    @FXML
+    private Button fxHreinsa;
 
     @FXML
     private CheckBox fxDarkMode;
+
     @FXML
     private ToggleButton fxEngButton;
 
     @FXML
     private ToggleButton fxIceButton;
 
+    private ResourceBundle currentBundle;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ToggleGroup languageGroup = new ToggleGroup();
         fxEngButton.setToggleGroup(languageGroup);
         fxIceButton.setToggleGroup(languageGroup);
+        loadLanguage("is");
+    }
+    public void loadLanguage(String langCode) {
+        currentBundle = ResourceBundle.getBundle("lang.lang", Locale.forLanguageTag(langCode));
+
+        fxDosirLabel.setText(currentBundle.getString("label.dosir"));
+        fxFloskurLabel.setText(currentBundle.getString("label.floskur"));
+        fxSamtalsLabel.setText(currentBundle.getString("label.samtals"));
+        fxGreida.setText(currentBundle.getString("button.greida"));
+        fxHreinsa.setText(currentBundle.getString("button.hreinsa"));
+        fxDarkMode.setText(currentBundle.getString("checkbox.darkmode"));
+        fxDosir.setPromptText(currentBundle.getString("textfield.prompt"));
+        fxFloskur.setPromptText(currentBundle.getString("textfield.prompt"));
+
+    }
+    public void switchToIcelandic() {
+        loadLanguage("is");
     }
 
+    public void switchToEnglish() {
+        loadLanguage("en");
+    }
 
 
     /**
