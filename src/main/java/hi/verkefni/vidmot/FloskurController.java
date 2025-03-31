@@ -13,6 +13,8 @@ import javafx.scene.control.ToggleGroup;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import java.util.Locale;
+import java.util.Stack;
+
 
 import javafx.scene.control.Button;
 
@@ -59,6 +61,13 @@ public class FloskurController implements Initializable {
     private ToggleButton fxIceButton;
 
     private ResourceBundle currentBundle;
+    @FXML private Button fxUndo;
+    @FXML private Button fxRedo;
+
+
+    private final Stack<State> undoStack = new Stack<>();
+    private final Stack<State> redoStack = new Stack<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ToggleGroup languageGroup = new ToggleGroup();
@@ -99,7 +108,8 @@ public class FloskurController implements Initializable {
         try {
             int dosir = Integer.parseInt(fxDosir.getText());
             int floskurCount = Integer.parseInt(fxFloskur.getText());
-            //Ath hvort inntak sé neikvætt
+
+            // Check for negative values
             if (dosir < 0 || floskurCount < 0) {
                 if (dosir < 0) {
                     fxDosir.setStyle("-fx-border-color: red;");
@@ -109,16 +119,23 @@ public class FloskurController implements Initializable {
                 }
                 return;
             }
+
+            // ✅ Save current state before updating
+            undoStack.push(new State(heildarVirdi));
+            redoStack.clear();
+
+            // Update total values
             heildarFjoldi += dosir + floskurCount;
             heildarVirdi += floskurCount * floskur.getVerdFloskur() + dosir * floskur.getVerdDosir();
-            //uppfæri label fyrir heildarvirði
+
+            // Update label
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
-            //Hreinsar inntaksreitina og núllstillir labels
+
+            // Clear fields + reset styles
             fxDosir.clear();
             fxFloskur.clear();
             fxDosirVirdi.setText("0");
             fxFloskurVirdi.setText("0");
-            //Fjarlægir villustyle úr reitum ef þeir eru gildar tölur
             fxDosir.setStyle(null);
             fxFloskur.setStyle(null);
 
@@ -131,6 +148,7 @@ public class FloskurController implements Initializable {
             }
         }
     }
+
 
     /**
      * Aðferð sem virkir "Hreinsa" takkann.
@@ -222,7 +240,44 @@ public class FloskurController implements Initializable {
             scene.getStylesheets().add(lightModeURL.toExternalForm());
         }
     }
+    private static class State {
+        int total;
 
+        State(int total) {
+            this.total = total;
+        }
+    }
 
+    private int parseInput(String text) {
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            State last = undoStack.pop();
 
+            // Save current to redo
+            redoStack.push(new State(heildarVirdi));
+
+            // Restore previous value
+            heildarVirdi = last.total;
+            fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
+        }
+    }
+
+    public void redo() {
+        if (!redoStack.isEmpty()) {
+            State next = redoStack.pop();
+
+            // Save current to undo
+            undoStack.push(new State(heildarVirdi));
+
+            // Restore value
+            heildarVirdi = next.total;
+            fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
+        }
+    }
 }
