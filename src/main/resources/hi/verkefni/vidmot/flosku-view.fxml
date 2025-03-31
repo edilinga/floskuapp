@@ -44,8 +44,16 @@
                 <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn fjölda" />
                 <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
-            <Button fx:id="fxUndo" text="Afturkalla" onAction="#undo" styleClass="undo-redo-button"/>
-            <Button fx:id="fxRedo" text="Endurgera" onAction="#redo" styleClass="undo-redo-button"/>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="46"/>
+                </padding>
+                <Button fx:id="fxUndo" text="Afturkalla" onAction="#undo" styleClass="undo-redo-button"/>
+                <Button fx:id="fxRedo" text="Endurgera" onAction="#redo" styleClass="undo-redo-button"/>
+            </HBox>
+
+
 
             <!-- Row for Total -->
             <HBox alignment="CENTER" spacing="10">
