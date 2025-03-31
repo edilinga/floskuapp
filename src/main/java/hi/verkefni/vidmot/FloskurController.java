@@ -86,6 +86,8 @@ public class FloskurController implements Initializable {
         fxDarkMode.setText(currentBundle.getString("checkbox.darkmode"));
         fxDosir.setPromptText(currentBundle.getString("textfield.prompt"));
         fxFloskur.setPromptText(currentBundle.getString("textfield.prompt"));
+        fxUndo.setText(currentBundle.getString("button.undo"));
+        fxRedo.setText(currentBundle.getString("button.redo"));
 
     }
     public void switchToIcelandic() {
