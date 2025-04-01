@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import java.util.Locale;
 import java.util.Stack;
+import javafx.scene.layout.VBox;
 
 
 import javafx.scene.control.Button;
@@ -69,6 +70,8 @@ public class FloskurController implements Initializable {
 
     @FXML
     private Label fxEmailConfirmation;
+    @FXML
+    private VBox fxEmailSection;
 
     private final Stack<State> undoStack = new Stack<>();
     private final Stack<State> redoStack = new Stack<>();
@@ -292,22 +295,30 @@ public class FloskurController implements Initializable {
     protected void onSendReceipt(ActionEvent event) {
         String email = fxEmailField.getText().trim();
 
-        if (email.isEmpty() || !email.contains("@")) {
-            fxEmailConfirmation.setText("Vinsamlegast sláðu inn gilt netfang.");
+        if (!isValidEmail(email)) {
+            fxEmailConfirmation.setText("Netfang er ógilt.");
             return;
         }
 
-        // Simulate sending email (you can log it to console)
-        System.out.println("Sending receipt to: " + email);
-        System.out.println("==== KVITTUN ====");
+        sendFakeReceipt(email);
+        fxEmailConfirmation.setText("Kvittun hefur verið 'send' á " + email + " 📧");
+        fxEmailField.clear();
+    }
+
+    @FXML
+    protected void onShowEmailInput(ActionEvent event) {
+        fxEmailSection.setVisible(true);
+        fxEmailSection.setManaged(true);
+    }
+    private boolean isValidEmail(String email) {
+        return email.contains("@") && email.contains(".");
+    }
+
+    private void sendFakeReceipt(String email) {
+        System.out.println("=== Kvittun send á " + email + " ===");
         System.out.println("Heildarfjöldi: " + heildarFjoldi);
         System.out.println("Heildarvirði: " + heildarVirdi + " kr.");
-        System.out.println("=================");
-
-        fxEmailConfirmation.setText("Kvittun hefur verið send á " + email + " 📧");
-
-        // Optional: clear field after sending
-        fxEmailField.clear();
+        System.out.println("===========================");
     }
 
 }

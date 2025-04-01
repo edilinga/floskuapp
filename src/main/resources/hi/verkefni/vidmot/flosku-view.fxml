@@ -70,12 +70,23 @@
                 <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="button"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER">
-                <TextField fx:id="fxEmailField" promptText="Netfang þitt" prefWidth="200"/>
-                <Button fx:id="fxSendReceipt" text="Senda kvittun" onAction="#onSendReceipt"/>
+            <!-- Kvittun Button -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="46"/>
+                </padding>
+                <Button fx:id="fxShowEmail" text="Kvittun" onAction="#onShowEmailInput"/>
             </HBox>
 
-            <Label fx:id="fxEmailConfirmation" text="" />
+            <!-- Email input section (initially hidden) -->
+            <VBox fx:id="fxEmailSection" spacing="10" visible="false" managed="false">
+                <HBox spacing="10" alignment="CENTER">
+                    <TextField fx:id="fxEmailField" promptText="Netfang þitt" prefWidth="200"/>
+                    <Button fx:id="fxSendReceipt" text="Senda kvittun" onAction="#onSendReceipt"/>
+                </HBox>
+                <Label fx:id="fxEmailConfirmation" text="" />
+            </VBox>
+
 
         </VBox>
     </center>
