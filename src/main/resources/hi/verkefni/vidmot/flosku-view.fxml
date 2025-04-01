@@ -87,7 +87,7 @@
                     <TextField fx:id="fxEmailField" promptText="Netfang þitt" prefWidth="200"/>
                     <Button fx:id="fxSendReceipt" text="Senda kvittun" onAction="#onSendReceipt"/>
                 </HBox>
-                <Label fx:id="fxEmailConfirmation" text="" />
+                <Label fx:id="fxEmailConfirmation" styleClass="confirmation-label" text="" />
             </VBox>
 
 

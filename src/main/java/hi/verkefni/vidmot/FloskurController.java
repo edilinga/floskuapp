@@ -109,6 +109,8 @@ public class FloskurController implements Initializable {
         fxEmailField.setPromptText(currentBundle.getString("email.prompt"));
         fxSendReceipt.setText(currentBundle.getString("email.send"));
         fxShowEmail.setText(currentBundle.getString("email.button"));
+        fxEmailConfirmation.setText(currentBundle.getString("email.invalid"));
+        fxEmailConfirmation.setText("");
     }
     public void switchToIcelandic() {
         loadLanguage("is");

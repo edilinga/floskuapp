@@ -38,6 +38,9 @@
     -fx-effect: none !important;
     -fx-opacity: 1 !important;
 }
+.confirmation-label {
+    -fx-text-fill: white;
+}
 
 
 .button:armed, .button:pressed {
