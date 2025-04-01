@@ -57,6 +57,17 @@
 .check-box {
     -fx-text-fill: white;
 }
+.undo-redo-button {
+    -fx-background-color: #a1d6f7 !important;  /* same as in light mode */
+    -fx-text-fill: black !important;
+    -fx-border-color: black !important;
+    -fx-border-width: 1px !important;
+    -fx-padding: 5px !important;
+}
+
+.undo-redo-button:hover {
+    -fx-background-color: #E5EDFF !important; /* same hover as in light mode */
+}
 
 #fxDosirLabel,
 #fxFloskurLabel,
