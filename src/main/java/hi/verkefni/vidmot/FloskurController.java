@@ -64,6 +64,11 @@ public class FloskurController implements Initializable {
     @FXML private Button fxUndo;
     @FXML private Button fxRedo;
 
+    @FXML
+    private TextField fxEmailField;
+
+    @FXML
+    private Label fxEmailConfirmation;
 
     private final Stack<State> undoStack = new Stack<>();
     private final Stack<State> redoStack = new Stack<>();
@@ -282,4 +287,27 @@ public class FloskurController implements Initializable {
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
         }
     }
+
+    @FXML
+    protected void onSendReceipt(ActionEvent event) {
+        String email = fxEmailField.getText().trim();
+
+        if (email.isEmpty() || !email.contains("@")) {
+            fxEmailConfirmation.setText("Vinsamlegast sláðu inn gilt netfang.");
+            return;
+        }
+
+        // Simulate sending email (you can log it to console)
+        System.out.println("Sending receipt to: " + email);
+        System.out.println("==== KVITTUN ====");
+        System.out.println("Heildarfjöldi: " + heildarFjoldi);
+        System.out.println("Heildarvirði: " + heildarVirdi + " kr.");
+        System.out.println("=================");
+
+        fxEmailConfirmation.setText("Kvittun hefur verið send á " + email + " 📧");
+
+        // Optional: clear field after sending
+        fxEmailField.clear();
+    }
+
 }

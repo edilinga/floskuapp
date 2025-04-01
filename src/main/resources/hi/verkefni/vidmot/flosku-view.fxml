@@ -62,10 +62,21 @@
             </HBox>
 
             <!-- Buttons Row -->
-            <HBox alignment="CENTER" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="46"/>
+                </padding>
                 <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða" styleClass="button"/>
                 <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="button"/>
             </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <TextField fx:id="fxEmailField" promptText="Netfang þitt" prefWidth="200"/>
+                <Button fx:id="fxSendReceipt" text="Senda kvittun" onAction="#onSendReceipt"/>
+            </HBox>
+
+            <Label fx:id="fxEmailConfirmation" text="" />
+
         </VBox>
     </center>
 </BorderPane>
