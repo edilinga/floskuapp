@@ -32,22 +32,30 @@
     <center>
         <VBox alignment="CENTER" prefHeight="300" prefWidth="400" spacing="15">
             <!-- Row for "Dósir" -->
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir" style="-fx-font-size:20px;"/>
-                <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn fjölda" />
-                <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0" />
-            </HBox>
+            <GridPane hgap="10" vgap="15">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="25"/>
+                </padding>
 
-            <!-- Row for "Flöskur" -->
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur" style="-fx-font-size:20px;"/>
-                <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn fjölda" />
-                <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
-            </HBox>
+                <!-- Dósir -->
+                <Label fx:id="fxDosirLabel" text="Dósir" style="-fx-font-size:20px;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn fjölda"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0"
+                       GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+                <!-- Flöskur -->
+                <Label fx:id="fxFloskurLabel" text="Flöskur" style="-fx-font-size:20px;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn fjölda"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0"
+                       GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            </GridPane>
+
 
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
-                    <Insets top="0" right="0" bottom="0" left="46"/>
+                    <Insets top="0" right="0" bottom="0" left="25"/>
                 </padding>
                 <Button fx:id="fxUndo" text="Afturkalla" onAction="#undo" styleClass="undo-redo-button"/>
                 <Button fx:id="fxRedo" text="Endurgera" onAction="#redo" styleClass="undo-redo-button"/>
@@ -58,25 +66,29 @@
             <!-- Row for Total -->
             <HBox alignment="CENTER_RIGHT" spacing="5">
                 <padding>
-                    <Insets top="0" left="0" bottom="0" right="50"/>
+                    <Insets top="0" left="0" bottom="0" right="45"/>
                 </padding>
                 <Label fx:id="fxSamtalsLabel" text="Samtals" style="-fx-font-size:16px;"/>
-                <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="100" style="-fx-font-weight: bold;" text="0" />
+                <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="70" style="-fx-font-weight: bold;" text="0" />
             </HBox>
 
             <!-- Buttons Row -->
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
-                    <Insets top="0" right="0" bottom="0" left="46"/>
+                    <Insets top="0" right="0" bottom="0" left="25"/>
                 </padding>
-                <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða" styleClass="button"/>
-                <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa" styleClass="button"/>
+                <Button fx:id="fxGreida" onAction="#onGreida" text="Greiða"
+                        styleClass="button" style="-fx-font-size: 14px; -fx-padding: 8 13;"/>
+
+                <Button fx:id="fxHreinsa" onAction="#onHreinsa" text="Hreinsa"
+                        styleClass="button" style="-fx-font-size: 14px; -fx-padding: 8 13;"/>
+
             </HBox>
 
             <!-- Kvittun Button -->
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
-                    <Insets top="0" right="0" bottom="0" left="46"/>
+                    <Insets top="0" right="0" bottom="0" left="25"/>
                 </padding>
                 <Button fx:id="fxShowEmail" text="Kvittun" onAction="#onShowEmailInput"/>
             </HBox>
