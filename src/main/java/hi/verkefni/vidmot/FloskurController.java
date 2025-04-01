@@ -62,6 +62,8 @@ public class FloskurController implements Initializable {
     private ToggleButton fxIceButton;
 
     private ResourceBundle currentBundle;
+
+    private ResourceBundle bundle;
     @FXML private Button fxUndo;
     @FXML private Button fxRedo;
 
@@ -72,6 +74,11 @@ public class FloskurController implements Initializable {
     private Label fxEmailConfirmation;
     @FXML
     private VBox fxEmailSection;
+    @FXML
+    private Button fxSendReceipt;
+
+    @FXML
+    private Button fxShowEmail;
 
     private final Stack<State> undoStack = new Stack<>();
     private final Stack<State> redoStack = new Stack<>();
@@ -81,8 +88,11 @@ public class FloskurController implements Initializable {
         ToggleGroup languageGroup = new ToggleGroup();
         fxEngButton.setToggleGroup(languageGroup);
         fxIceButton.setToggleGroup(languageGroup);
-        loadLanguage("is");
+
+        this.bundle = resources;       // ✅ Set bundle first
+        loadLanguage("is");            // ✅ Then load initial texts
     }
+
     public void loadLanguage(String langCode) {
         currentBundle = ResourceBundle.getBundle("lang.lang", Locale.forLanguageTag(langCode));
 
@@ -96,10 +106,13 @@ public class FloskurController implements Initializable {
         fxFloskur.setPromptText(currentBundle.getString("textfield.prompt"));
         fxUndo.setText(currentBundle.getString("button.undo"));
         fxRedo.setText(currentBundle.getString("button.redo"));
-
+        fxEmailField.setPromptText(currentBundle.getString("email.prompt"));
+        fxSendReceipt.setText(currentBundle.getString("email.send"));
+        fxShowEmail.setText(currentBundle.getString("email.button"));
     }
     public void switchToIcelandic() {
         loadLanguage("is");
+
     }
 
     public void switchToEnglish() {
@@ -296,14 +309,16 @@ public class FloskurController implements Initializable {
         String email = fxEmailField.getText().trim();
 
         if (!isValidEmail(email)) {
-            fxEmailConfirmation.setText("Netfang er ógilt.");
+            fxEmailConfirmation.setText(currentBundle.getString("email.invalid"));
             return;
         }
 
         sendFakeReceipt(email);
-        fxEmailConfirmation.setText("Kvittun hefur verið 'send' á " + email + " 📧");
+
+        fxEmailConfirmation.setText(currentBundle.getString("email.sent") + " " + email + " 📧");
         fxEmailField.clear();
     }
+
 
     @FXML
     protected void onShowEmailInput(ActionEvent event) {
@@ -319,6 +334,11 @@ public class FloskurController implements Initializable {
         System.out.println("Heildarfjöldi: " + heildarFjoldi);
         System.out.println("Heildarvirði: " + heildarVirdi + " kr.");
         System.out.println("===========================");
+    }
+    private void updateEmailTexts() {
+        fxEmailField.setPromptText(bundle.getString("email.prompt"));
+        fxSendReceipt.setText(bundle.getString("email.send"));
+        fxShowEmail.setText(bundle.getString("email.button"));
     }
 
 }
