@@ -33,14 +33,14 @@
         <VBox alignment="CENTER" prefHeight="300" prefWidth="400" spacing="15">
             <!-- Row for "Dósir" -->
             <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir"/>
+                <Label fx:id="fxDosirLabel" prefWidth="80"  text="Dósir" style="-fx-font-size:20px;"/>
                 <TextField fx:id="fxDosir" onAction="#onDosir" prefWidth="150" promptText="Sláðu inn fjölda" />
                 <Label fx:id="fxDosirVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
 
             <!-- Row for "Flöskur" -->
             <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur"/>
+                <Label fx:id="fxFloskurLabel" prefWidth="80" text="Flöskur" style="-fx-font-size:20px;"/>
                 <TextField fx:id="fxFloskur" onAction="#onFloskur" prefWidth="150" promptText="Sláðu inn fjölda" />
                 <Label fx:id="fxFloskurVirdi" styleClass="output-label" prefWidth="50" text="0" />
             </HBox>
@@ -56,9 +56,12 @@
 
 
             <!-- Row for Total -->
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="fxSamtalsLabel" prefWidth="80" text="Samtals"/>
-                <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="200" style="-fx-font-weight: bold;" text="0" />
+            <HBox alignment="CENTER_RIGHT" spacing="5">
+                <padding>
+                    <Insets top="0" left="0" bottom="0" right="50"/>
+                </padding>
+                <Label fx:id="fxSamtalsLabel" text="Samtals" style="-fx-font-size:16px;"/>
+                <Label fx:id="fxSamtalsVirdi" styleClass="output-label" prefWidth="100" style="-fx-font-weight: bold;" text="0" />
             </HBox>
 
             <!-- Buttons Row -->
