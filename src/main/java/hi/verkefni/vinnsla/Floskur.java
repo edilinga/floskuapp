@@ -8,12 +8,10 @@ public class Floskur {
     int verdDosir = 13;
     int virdiFloskur = 0;
     int virdiDosir = 0;
-
     /**
      * Setur fjölda flaskna og reiknar heildarverðmæti þeirra.
      * @param floskur fjöldi flaskna
      */
-
     public void setFjoldiFloskur(int floskur){
         virdiFloskur = floskur * verdFloskur;
     }
@@ -45,9 +43,19 @@ public class Floskur {
         virdiFloskur = 0;
         virdiDosir = 0;
     }
+    /**
+     * Skilar skilagjaldi fyrir eina flösku.
+     *
+     * @return verð per flösku
+     */
     public int getVerdFloskur() {
         return verdFloskur;
     }
+    /**
+     * Skilar skilagjaldi fyrir eina dós.
+     *
+     * @return verð per dós
+     */
     public int getVerdDosir() {
         return verdDosir;
     }

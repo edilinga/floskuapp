@@ -74,7 +74,7 @@ public class FloskurController implements Initializable {
     /**
      * Upphafsstillir viðmótið
      * @param location
-     * @param resources
+     * @param resources skrá með þýðingum
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,6 +94,10 @@ public class FloskurController implements Initializable {
         });
     }
 
+    /**
+     * Hleður viðeigandi tungumálapakka og uppfærir viðmótsstefnur.
+     * @param langCode tungumálakóði ("is" fyrir íslensku, "en" fyrir ensku)
+     */
 
     public void loadLanguage(String langCode) {
         currentBundle = ResourceBundle.getBundle("lang.lang", Locale.forLanguageTag(langCode));
@@ -114,20 +118,24 @@ public class FloskurController implements Initializable {
         fxEmailConfirmation.setText(currentBundle.getString("email.invalid"));
         fxEmailConfirmation.setText("");
     }
+    /**
+     * Skipti yfir á íslenskt viðmót.
+     */
     public void switchToIcelandic() {
         loadLanguage("is");
 
     }
-
+    /**
+     * Skipti yfir á enskt viðmót.
+     */
     public void switchToEnglish() {
         loadLanguage("en");
     }
 
 
     /**
-     * Aðferð sem virkir "Greiða" takkann.
-     * Bætir fjölda flaskna og dósa og virði þeirra við heildarfjölda og heildarvirði.
-     * Núllstillir inntaksreitina og einstakar merkingar.
+     * Aðgerð fyrir hnappinn "Greiða".
+     * Athugar lögmæti inntaks, reiknar virði og uppfærir viðmót.
      * @param event atburður sem virkist þegar smellt er á "Greiða" hnappinn
      */
     @FXML
@@ -146,18 +154,13 @@ public class FloskurController implements Initializable {
                 }
                 return;
             }
-
-
             undoStack.push(new State(heildarVirdi));
             redoStack.clear();
-
 
             heildarFjoldi += dosir + floskurCount;
             heildarVirdi += floskurCount * floskur.getVerdFloskur() + dosir * floskur.getVerdDosir();
 
-
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
-
 
             fxDosir.clear();
             fxFloskur.clear();
@@ -175,11 +178,9 @@ public class FloskurController implements Initializable {
             }
         }
     }
-
-
     /**
      * Aðferð sem virkir "Hreinsa" takkann.
-     * Hreinsar alla inntaksreiti, núllstillir merkingar og fjarlægir villustyle.
+     * Núllstillir öll gildi og reiti í viðmóti og hreinsar innri gagnavinnslu.
      * @param event atburður sem virkist þegar smellt er á "Hreinsa" takkann.
      */
     @FXML
@@ -193,16 +194,13 @@ public class FloskurController implements Initializable {
         fxDosir.setStyle(null);
         fxFloskur.setStyle(null);
 
-
         heildarFjoldi = 0;
         heildarVirdi = 0;
         floskur.hreinsa();
     }
-
-
     /**
-     * Aðferð sem virkir innslátt í reit fyrir fjölda dósa.
-     * Reiknar út virði dósa og uppfærir label.
+     * Virkjast þegar notandi slær inn fjölda dósa og ýtir á Enter.
+     * Uppfærir virði dósa í viðmóti.
      * @param actionEvent atburður sem virkist þegar notandi ýtir á enter
      */
     public void onDosir(ActionEvent actionEvent) {
@@ -225,7 +223,7 @@ public class FloskurController implements Initializable {
     }
     /**
      * Aðferð sem virkir innslátt í reit fyrir fjölda flaska.
-     * Reiknar út virði flaskna og uppfærir label.
+     * Uppfærir virði flaskna í viðmóti.
      * @param actionEvent atburður sem virkist þegar notandi ýtir á enter.
      */
     public void onFloskur(ActionEvent actionEvent) {
@@ -245,11 +243,15 @@ public class FloskurController implements Initializable {
             }
         }
     }
+    /**
+     * Kveikir eða slekkur á dökku viðmóti (dark mode) út frá stöðu hakboxins.
+     *
+     * @param event atburður sem virkjast þegar smellt er á hakboxið.
+     */
     @FXML
     protected void toggleDarkMode(ActionEvent event) {
         Scene scene = ((Node) event.getSource()).getScene();
 
-        // URLs to both stylesheets
         URL darkModeURL = getClass().getResource("/hi/verkefni/vidmot/css/darkmode.css");
         URL lightModeURL = getClass().getResource("/hi/verkefni/vidmot/css/floskur.css");
 
@@ -257,8 +259,6 @@ public class FloskurController implements Initializable {
             System.err.println("Stylesheet not found!");
             return;
         }
-
-
         scene.getStylesheets().clear();
 
         if (fxDarkMode.isSelected()) {
@@ -274,33 +274,37 @@ public class FloskurController implements Initializable {
             this.total = total;
         }
     }
-
+    /**
+     * Afturkallar síðustu breytingu á heildarvirði.
+     */
     public void undo() {
         if (!undoStack.isEmpty()) {
             State last = undoStack.pop();
 
-
             redoStack.push(new State(heildarVirdi));
-
 
             heildarVirdi = last.total;
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
         }
     }
-
+    /**
+     * Endurvirkjar síðustu breytingu sem var afturkölluð.
+     */
     public void redo() {
         if (!redoStack.isEmpty()) {
             State next = redoStack.pop();
 
-
             undoStack.push(new State(heildarVirdi));
-
 
             heildarVirdi = next.total;
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
         }
     }
-
+    /**
+     * Sendir kvittun í tölvupósti (gerviaðgerð) og sýnir staðfestingu.
+     *
+     * @param event atburður sem virkjast þegar smellt er á "Senda kvittun"
+     */
     @FXML
     protected void onSendReceipt(ActionEvent event) {
         String email = fxEmailField.getText().trim();
@@ -315,17 +319,30 @@ public class FloskurController implements Initializable {
         fxEmailConfirmation.setText(currentBundle.getString("email.sent") + " " + email + " 📧");
         fxEmailField.clear();
     }
-
-
+    /**
+     * Sýnir reit til að slá inn netfang.
+     *
+     * @param event atburður sem virkjast þegar notandi vill senda kvittun
+     */
     @FXML
     protected void onShowEmailInput(ActionEvent event) {
         fxEmailSection.setVisible(true);
         fxEmailSection.setManaged(true);
     }
+    /**
+     * Athugar hvort netfang sé löglegt.
+     *
+     * @param email netfang sem á að athuga
+     * @return true ef netfang er gilt, annars false
+     */
     private boolean isValidEmail(String email) {
         return email.contains("@") && email.contains(".");
     }
-
+    /**
+     * Sýndaraðgerð sem hermir eftir því að senda kvittun í póst og birtir í console.
+     *
+     * @param email netfang viðtakanda
+     */
     private void sendFakeReceipt(String email) {
         System.out.println("=== Kvittun send á " + email + " ===");
         System.out.println("Heildarfjöldi: " + heildarFjoldi);
