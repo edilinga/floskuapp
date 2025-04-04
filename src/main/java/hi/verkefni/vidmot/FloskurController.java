@@ -21,7 +21,7 @@ import javafx.scene.control.Button;
 
 /**
  * Stýriklasi fyrir notendaviðmót flösku- og dósamóttöku forritsins.
- * Sér um að athuga hvort inntak sé löglegt, uppfærir heildarmagn og skilagjald og tengist vinnsluklasanum, Floskur.
+ * Sér um samskipti við notanda, athugar inntak, uppfærir viðmót, heldur utan um stöðu og tengist vinnsluklasanum, Floskur.
  */
 public class FloskurController implements Initializable {
     @FXML
@@ -39,59 +39,61 @@ public class FloskurController implements Initializable {
     private int heildarVirdi = 0;
     @FXML
     private Label fxDosirLabel;
-
     @FXML
     private Label fxFloskurLabel;
-
     @FXML
     private Label fxSamtalsLabel;
-
     @FXML
     private Button fxGreida;
-
     @FXML
     private Button fxHreinsa;
-
     @FXML
     private CheckBox fxDarkMode;
-
     @FXML
     private ToggleButton fxEngButton;
-
     @FXML
     private ToggleButton fxIceButton;
-
     private ResourceBundle currentBundle;
-
     private ResourceBundle bundle;
     @FXML private Button fxUndo;
     @FXML private Button fxRedo;
-
     @FXML
     private TextField fxEmailField;
-
     @FXML
     private Label fxEmailConfirmation;
     @FXML
     private VBox fxEmailSection;
     @FXML
     private Button fxSendReceipt;
-
     @FXML
     private Button fxShowEmail;
 
     private final Stack<State> undoStack = new Stack<>();
     private final Stack<State> redoStack = new Stack<>();
 
+    /**
+     * Upphafsstillir viðmótið
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ToggleGroup languageGroup = new ToggleGroup();
         fxEngButton.setToggleGroup(languageGroup);
         fxIceButton.setToggleGroup(languageGroup);
 
-        this.bundle = resources;       // ✅ Set bundle first
-        loadLanguage("is");            // ✅ Then load initial texts
+        this.bundle = resources;
+        loadLanguage("is");
+
+        fxDosir.textProperty().addListener((observable, oldValue, newValue) -> {
+            fxDosir.setStyle(null);
+        });
+
+        fxFloskur.textProperty().addListener((observable, oldValue, newValue) -> {
+            fxFloskur.setStyle(null);
+        });
     }
+
 
     public void loadLanguage(String langCode) {
         currentBundle = ResourceBundle.getBundle("lang.lang", Locale.forLanguageTag(langCode));
@@ -145,18 +147,18 @@ public class FloskurController implements Initializable {
                 return;
             }
 
-            // ✅ Save current state before updating
+
             undoStack.push(new State(heildarVirdi));
             redoStack.clear();
 
-            // Update total values
+
             heildarFjoldi += dosir + floskurCount;
             heildarVirdi += floskurCount * floskur.getVerdFloskur() + dosir * floskur.getVerdDosir();
 
-            // Update label
+
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
 
-            // Clear fields + reset styles
+
             fxDosir.clear();
             fxFloskur.clear();
             fxDosirVirdi.setText("0");
@@ -191,10 +193,10 @@ public class FloskurController implements Initializable {
         fxDosir.setStyle(null);
         fxFloskur.setStyle(null);
 
-        // 💥 Reset internal counters
+
         heildarFjoldi = 0;
         heildarVirdi = 0;
-        floskur.hreinsa(); // also clears virdiFloskur & virdiDosir
+        floskur.hreinsa();
     }
 
 
@@ -256,7 +258,7 @@ public class FloskurController implements Initializable {
             return;
         }
 
-        // Clear all styles and load the selected one
+
         scene.getStylesheets().clear();
 
         if (fxDarkMode.isSelected()) {
@@ -273,21 +275,14 @@ public class FloskurController implements Initializable {
         }
     }
 
-    private int parseInput(String text) {
-        try {
-            return Integer.parseInt(text);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
     public void undo() {
         if (!undoStack.isEmpty()) {
             State last = undoStack.pop();
 
-            // Save current to redo
+
             redoStack.push(new State(heildarVirdi));
 
-            // Restore previous value
+
             heildarVirdi = last.total;
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
         }
@@ -297,10 +292,10 @@ public class FloskurController implements Initializable {
         if (!redoStack.isEmpty()) {
             State next = redoStack.pop();
 
-            // Save current to undo
+
             undoStack.push(new State(heildarVirdi));
 
-            // Restore value
+
             heildarVirdi = next.total;
             fxSamtalsVirdi.setText(String.valueOf(heildarVirdi));
         }
@@ -336,11 +331,6 @@ public class FloskurController implements Initializable {
         System.out.println("Heildarfjöldi: " + heildarFjoldi);
         System.out.println("Heildarvirði: " + heildarVirdi + " kr.");
         System.out.println("===========================");
-    }
-    private void updateEmailTexts() {
-        fxEmailField.setPromptText(bundle.getString("email.prompt"));
-        fxSendReceipt.setText(bundle.getString("email.send"));
-        fxShowEmail.setText(bundle.getString("email.button"));
     }
 
 }
